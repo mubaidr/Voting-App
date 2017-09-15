@@ -4,13 +4,15 @@
   "description": "Open-Voting-Application Freecode camp exercise",
   "private": true,
   "scripts": {
-    "start": "node app/index.js",
-    "dev": "nodemon app/index.js"
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js"
   },
   "engines": {
     "node": "^8.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.1",
+    "cors": "^2.8.4",
     "express": "~4.15.2",
     "mongodb": "^2.2.31"
   },

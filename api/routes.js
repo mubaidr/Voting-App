@@ -1,23 +1,7 @@
 // var url = require('url')
 const router = require('express').Router()
 
-router.get('/', (req, res) => {
-  res.redirect('/home')
-})
-
-router.get('/home', (req, res) => {
-  res.status(200).json({
-    message: 'home!'
-  })
-})
-
-router.get('/signin', (req, res) => {
-  res.status(200).json({
-    message: 'signin!'
-  })
-})
-
-router.get('/user', (req, res) => {
+router.get('/user/:id', (req, res) => {
   res.status(200).json({
     message: 'user!'
   })
