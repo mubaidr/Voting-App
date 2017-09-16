@@ -65,8 +65,8 @@ router.post('/authenticate', (req, res) => {
 })
 
 /* users */
-router.get('/api/users/:id', (req, res) => {
-  let id = ObjectId(req.params.id)
+router.get('/api/users/self', (req, res) => {
+  let id = ObjectId(req.decoded.id)
 
   User.findOne(id).exec((error, result) => {
     if (error) res.status(500).end()
@@ -112,7 +112,7 @@ router.post('/api/users/create', (req, res) => {
 })
 
 /* polls */
-router.get('/api/polls', (req, res) => {
+router.get('/api/polls/all', (req, res) => {
   Poll.find({}).limit(10).sort({
     'created_at': -1
   }).exec((error, result) => {
@@ -121,12 +121,14 @@ router.get('/api/polls', (req, res) => {
   })
 })
 
-router.get('/api/polls/users/:userId', (req, res) => {
-  let userId = req.params.userId
+router.get('/api/polls', (req, res) => {
+  let userId = req.decoded.id
 
   Poll.find({
     created_by: userId
-  }).limit(10).exec((error, result) => {
+  }).limit(10).sort({
+    'created_at': -1
+  }).exec((error, result) => {
     if (error) res.status(500).end()
     res.send(result)
   })
