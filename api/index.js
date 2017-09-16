@@ -1,20 +1,28 @@
-var express = require('express')
-var path = require('path')
-var bodyParser = require('body-parser')
-var cors = require('cors')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const express = require('express')
+const mongoose = require('mongoose')
+const morgan = require('morgan')
+const path = require('path')
 
-var routes = require('./routes')
+const config = require('./config')
+const routes = require('./routes')
 
 var app = express()
-var port = process.env.PORT || 9000
+var port = process.env.PORT || config.port
 
+mongoose.connect(config.database, {
+  useMongoClient: true
+})
+
+app.use(morgan('dev'))
 app.use(cors())
-app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 
 app.use('/', routes)
-app.get('*', (req, res) => {
-  res.status(404).send('Not Found!')
-})
 
 app.listen(port)
