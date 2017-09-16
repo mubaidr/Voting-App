@@ -8,73 +8,7 @@ const User = require('./models').User
 const Poll = require('./models').Poll
 const config = require('./config')
 
-/* authorization */
-router.use((req, res, next) => {
-  let token = req.body.token || req.query.token || req.headers['x-access-token']
-
-  if (token) {
-    jwt.verify(token, config.secret, (err, decoded) => {
-      if (err) {
-        return res.json({
-          success: !err,
-          error: err
-        })
-      } else {
-        req.decoded = decoded
-        next()
-      }
-    })
-  } else {
-    return res.status(403).send({
-      success: false,
-      error: 'No token provided.'
-    })
-  }
-})
-
-/* authentication */
-router.post('/authenticate', (req, res) => {
-  User.findOne({
-    username: req.body.username,
-    password: bcrypt.hash(req.body.password, 8)
-  }, (err, user) => {
-    if (err) {
-      res.status(500).json({
-        success: false,
-        error: 'Server error.'
-      })
-    }
-
-    if (!user) {
-      res.json({
-        success: false,
-        error: 'Authentication failed. Invalid username or password.'
-      })
-    } else {
-      var token = jwt.sign(user, config.secret, {
-        expiresInMinutes: 1440
-      })
-
-      res.json({
-        success: true,
-        error: null,
-        token: token
-      })
-    }
-  })
-})
-
-/* users */
-router.get('/api/users/self', (req, res) => {
-  let id = ObjectId(req.decoded.id)
-
-  User.findOne(id).exec((error, result) => {
-    if (error) res.status(500).end()
-    res.json(result)
-  })
-})
-
-router.post('/api/users/create', (req, res) => {
+router.post('/auth/register', (req, res) => {
   User.findOne({
     username: req.body.username
   }, (err, user) => {
@@ -108,6 +42,72 @@ router.post('/api/users/create', (req, res) => {
         error: 'Username already registered.'
       })
     }
+  })
+})
+
+router.post('/auth/login', (req, res) => {
+  User.findOne({
+    username: req.body.username,
+    password: bcrypt.hash(req.body.password, 8)
+  }, (err, user) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        error: 'Server error.'
+      })
+    }
+
+    if (!user) {
+      res.json({
+        success: false,
+        error: 'Authentication failed. Invalid username or password.'
+      })
+    } else {
+      var token = jwt.sign(user, config.secret, {
+        expiresInMinutes: 1440
+      })
+
+      res.json({
+        success: true,
+        error: null,
+        token: token
+      })
+    }
+  })
+})
+
+/* authentication */
+router.use('/api/*', (req, res, next) => {
+  let token = req.body.token || req.query.token || req.headers['x-access-token']
+
+  if (token) {
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        return res.json({
+          success: !err,
+          error: err
+        })
+      } else {
+        console.log(decoded)
+        req.decoded = decoded
+        next()
+      }
+    })
+  } else {
+    return res.status(403).send({
+      success: false,
+      error: 'No token provided.'
+    })
+  }
+})
+
+/* users */
+router.get('/api/users/self', (req, res) => {
+  let id = ObjectId(req.decoded.id)
+
+  User.findOne(id).exec((error, result) => {
+    if (error) res.status(500).end()
+    res.json(result)
   })
 })
 
