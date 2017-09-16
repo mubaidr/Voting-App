@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+
 const router = require('express').Router()
 const ObjectId = require('mongodb').ObjectId
 
@@ -34,7 +36,7 @@ router.use((req, res, next) => {
 router.post('/authenticate', (req, res) => {
   User.findOne({
     username: req.body.username,
-    password: req.body.password
+    password: bcrypt.hash(req.body.password, 8)
   }, (err, user) => {
     if (err) {
       res.status(500).json({
@@ -86,13 +88,18 @@ router.post('/api/users/create', (req, res) => {
     if (!user) {
       let user = new User({
         username: req.body.username,
-        password: req.body.password
+        password: bcrypt.hash(req.body.password, 8)
       })
 
       user.save(err => {
+        var token = jwt.sign(user, config.secret, {
+          expiresInMinutes: 1440
+        })
+
         res.json({
           success: !err,
-          error: err
+          error: err,
+          token: token
         })
       })
     } else {
