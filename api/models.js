@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 
 let User = new mongoose.Schema({
   username: {
+    index: {
+      unique: true
+    },
     type: String,
     min: 6,
     max: 12,
@@ -10,7 +13,6 @@ let User = new mongoose.Schema({
   password: {
     type: String,
     min: 8,
-    max: 16,
     required: true
   }
 })
