@@ -43,7 +43,11 @@ router.post('/api/polls/create', (req, res, next) => {
     created_at: new Date(),
     created_by: userId,
     title: req.body.title,
-    options: req.body.options
+    options: req.body.options,
+    vote_stats: {
+      total: 0,
+      options: []
+    }
   })
 
   poll.save(err => {

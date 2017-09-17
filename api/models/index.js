@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-let User = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
   first_name: String,
   last_name: String,
   username: {
@@ -19,7 +19,7 @@ let User = new mongoose.Schema({
   }
 })
 
-let Poll = new mongoose.Schema({
+let pollSchema = new mongoose.Schema({
   created_at: {
     type: Date,
     required: true
@@ -34,28 +34,40 @@ let Poll = new mongoose.Schema({
     max: 250,
     required: true
   },
-  options: [String]
+  options: {
+    type: [String],
+    required: function () {
+      return this.length >= 2
+    }
+  },
+  vote_stats: {
+    total: Number,
+    options: [Number]
+  }
 })
 
-let Vote = new mongoose.Schema({
+let voteSchema = new mongoose.Schema({
   user_id: {
     type: String,
     required: true
   },
-  post_id: {
+  poll_id: {
     type: String,
     required: true
   },
   option: String
 })
 
-Vote.pre('save', next => {
-  console.log('Vote: ', this, Vote)
+let userModel = mongoose.model('User', userSchema)
+let pollModel = mongoose.model('Poll', pollSchema)
+let voteModel = mongoose.model('Vote', voteSchema)
+
+voteSchema.pre('save', next => {
   next()
 })
 
 module.exports = {
-  User: mongoose.model('User', User),
-  Poll: mongoose.model('Poll', Poll),
-  Vote: mongoose.model('Vote', Vote)
+  User: userModel,
+  Poll: pollModel,
+  Vote: voteModel
 }
