@@ -12,7 +12,57 @@ const config = require('./config')
 
 /* authentication */
 router.post('/auth/register', (req, res, next) => {
-  let username = req.body.username
+  let username = req.body.username.toLowerCase()
+  let password = req.body.password
+  let passwordHash = bcrypt.hashSync(password, 8)
+
+  if (!validate.username(username) || !validate.password(password)) {
+    res.json({
+      success: false,
+      error: 'Invalid request'
+    })
+    return
+  }
+
+  User.findOne({
+    username: username
+  }).exec((err, user) => {
+    if (err) next(err)
+
+    if (user) {
+      res.json({
+        success: false,
+        error: 'Username already registered'
+      })
+    } else {
+      let user = new User({
+        username: username,
+        password: passwordHash
+      })
+
+      user.save((err, usr) => {
+        if (err) next(err)
+
+        jwt.sign({
+          data: user
+        }, config.secret, {
+          expiresIn: 60 * 60 * 24
+        }, function (err, token) {
+          if (err) next(err)
+
+          res.json({
+            success: true,
+            error: null,
+            token: token
+          })
+        })
+      })
+    }
+  })
+})
+
+router.post('/auth/login', (req, res, next) => {
+  let username = req.body.username.toLowerCase()
   let password = req.body.password
   let passwordHash = bcrypt.hashSync(password, 8)
 
@@ -29,71 +79,35 @@ router.post('/auth/register', (req, res, next) => {
   }, (err, user) => {
     if (err) next(err)
 
-    if (user) {
-      res.json({
-        success: false,
-        error: 'Username already registered.'
-      })
-    } else {
-      let user = new User({
-        username: username,
-        password: passwordHash
-      })
-
-      user.save(err => {
-        if (err) next(err)
-
-        jwt.sign(user, config.secret, {
-          expiresInMinutes: 1440
-        }, (err, token) => {
-          if (err) next(err)
-
-          res.json({
-            success: !err,
-            error: err,
-            token: token
-          })
-        })
-      })
-    }
-  })
-})
-
-router.post('/auth/login', (req, res, next) => {
-  let username = req.body.username
-  let password = req.body.password
-  let passwordHash = bcrypt.hashSync(password, 8)
-
-  if (!validate.username(username) || !validate.password(password)) {
-    res.json({
-      success: false,
-      error: 'Invalid request'
-    })
-    return
-  }
-
-  User.findOne({
-    username: username,
-    password: passwordHash
-  }, (err, user) => {
-    if (err) next(err)
-
     if (!user) {
       res.json({
         success: false,
-        error: 'Authentication failed. Invalid username or password.'
+        error: 'Authentication failed'
       })
     } else {
-      jwt.sign(user, config.secret, {
-        expiresInMinutes: 1440
-      }, function (err, token) {
+      bcrypt.compare(password, user.password, function (err, same) {
         if (err) next(err)
 
-        res.json({
-          success: !err,
-          error: err,
-          token: token
-        })
+        if (same) {
+          jwt.sign({
+            data: user
+          }, config.secret, {
+            expiresIn: 60 * 60 * 24
+          }, function (err, token) {
+            if (err) next(err)
+
+            res.json({
+              success: true,
+              error: null,
+              token: token
+            })
+          })
+        } else {
+          res.json({
+            success: false,
+            error: 'Authentication failed'
+          })
+        }
       })
     }
   })
@@ -113,7 +127,7 @@ router.use('/api/*', (req, res, next) => {
   } else {
     res.status(403).send({
       success: false,
-      error: 'No token provided.'
+      error: 'No token provided'
     })
   }
 })
@@ -184,7 +198,7 @@ router.get('*', (req, res, next) => {
 
 /* Error handler */
 router.use(function (err, req, res, next) {
-  chalk.red(err)
+  console.dir(chalk.bgRed(err))
   res.status(500).send('Internal Server Error')
 })
 
