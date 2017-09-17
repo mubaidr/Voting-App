@@ -4,5 +4,8 @@ module.exports = {
   },
   password: function (str) {
     return typeof str === 'string' && str.length >= 8
+  },
+  poll: function (obj) {
+    return obj.title.length > 6 && obj.title.length < 250 && obj.options.length >= 2
   }
 }

@@ -3,10 +3,9 @@ const bcrypt = require('bcryptjs')
 const chalk = require('chalk')
 
 const router = require('express').Router()
-const ObjectId = require('mongodb').ObjectId
-
 const User = require('./models').User
 const Poll = require('./models').Poll
+
 const validate = require('./validators')
 const config = require('./config')
 
@@ -64,7 +63,6 @@ router.post('/auth/register', (req, res, next) => {
 router.post('/auth/login', (req, res, next) => {
   let username = req.body.username.toLowerCase()
   let password = req.body.password
-  let passwordHash = bcrypt.hashSync(password, 8)
 
   if (!validate.username(username) || !validate.password(password)) {
     res.json({
@@ -117,29 +115,20 @@ router.use('/api/*', (req, res, next) => {
   let token = req.body.token || req.query.token || req.headers['x-access-token']
 
   if (token) {
-    jwt.verify(token, config.secret, (err, decoded) => {
+    jwt.verify(token, config.secret, (err, account) => {
       if (err) next(err)
 
-      console.log(decoded)
-      req.decoded = decoded
+      req.account = account
       next()
     })
   } else {
-    res.status(403).send({
-      success: false,
-      error: 'No token provided'
-    })
+    res.sendStatus(403)
   }
 })
 
 /* users */
 router.get('/api/users/self', (req, res, next) => {
-  let id = ObjectId(req.decoded.id)
-
-  User.findOne(id).exec((err, result) => {
-    if (err) next(err)
-    res.json(result)
-  })
+  res.json(req.account)
 })
 
 /* polls */
@@ -148,12 +137,13 @@ router.get('/api/polls/all', (req, res, next) => {
     'created_at': -1
   }).exec((err, result) => {
     if (err) next(err)
+
     res.send(result)
   })
 })
 
 router.get('/api/polls', (req, res, next) => {
-  let userId = req.decoded.id
+  let userId = req.account.data._id
 
   Poll.find({
     created_by: userId
@@ -161,23 +151,27 @@ router.get('/api/polls', (req, res, next) => {
     'created_at': -1
   }).exec((err, result) => {
     if (err) next(err)
+
     res.send(result)
   })
 })
 
 router.get('/api/polls/:id', (req, res, next) => {
-  let id = ObjectId(req.params.id)
+  let id = req.params.id
 
-  Poll.findOne(id).exec((err, result) => {
+  Poll.findById(id).exec((err, result) => {
     if (err) next(err)
+
     res.send(result)
   })
 })
 
 router.post('/api/polls/create', (req, res, next) => {
+  let userId = req.account.data._id
+
   let poll = new Poll({
     created_at: new Date(),
-    created_by: req.decoded.id,
+    created_by: userId,
     title: req.body.title,
     options: req.body.options
   })
@@ -192,14 +186,15 @@ router.post('/api/polls/create', (req, res, next) => {
 })
 
 /* 404 */
-router.get('*', (req, res, next) => {
+router.get('*', (req, res) => {
+  console.dir(chalk.bgRed('404! Not Found!'))
   res.status(404).end()
 })
 
 /* Error handler */
 router.use(function (err, req, res, next) {
   console.dir(chalk.bgRed(err))
-  res.status(500).send('Internal Server Error')
+  res.status(500).send(err)
 })
 
 module.exports = router
