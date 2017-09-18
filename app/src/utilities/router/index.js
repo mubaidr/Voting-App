@@ -37,14 +37,14 @@ const router = new Router({
     path: '/register',
     component: register
   }, {
-    path: '/signin',
+    path: '/login',
     component: login
   }, {
     path: '/404',
     component: _404
   }, {
     path: '*',
-    redirect: '/error/404'
+    redirect: '/404'
   }]
 })
 

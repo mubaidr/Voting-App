@@ -11,9 +11,13 @@ import {
 sync(store, router)
 
 const app = new Vue({
+  el: '#app',
   router,
   store,
-  ...App
+  template: '<App/>',
+  components: {
+    App
+  }
 })
 
 export {

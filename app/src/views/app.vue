@@ -1,6 +1,5 @@
 <template>
-  <div>
-    APP
+  <div id="app">
     <header-comp></header-comp>
     <div class="container">
       <transition appear :name="transitionName" mode="out-in">
@@ -39,4 +38,4 @@
   }
 </script>
 
-<style lang="scss"></style>
+<style></style>
