@@ -1,23 +1,12 @@
 const router = require('express').Router()
+const parse = require('url-parse')
 
 const Poll = require('../models').Poll
 
 router.get('/api/polls/all', (req, res, next) => {
-  Poll.find({}).limit(10).sort({
-    'created_at': -1
-  }).exec((err, result) => {
-    if (err) next(err)
+  let offset = parse(req.originalUrl, true).query.offset || 0
 
-    res.send(result)
-  })
-})
-
-router.get('/api/polls', (req, res, next) => {
-  let userId = req.account.data._id
-
-  Poll.find({
-    created_by: userId
-  }).limit(10).sort({
+  Poll.find({}).skip(offset).limit(10).sort({
     'created_at': -1
   }).exec((err, result) => {
     if (err) next(err)
@@ -36,7 +25,59 @@ router.get('/api/polls/:id', (req, res, next) => {
   })
 })
 
-router.post('/api/polls/create', (req, res, next) => {
+router.delete('/api/polls/:id', (req, res, next) => {
+  let id = req.params.id
+
+  Poll.findOneAndRemove({
+    _id: id,
+    created_by: req.account.data._id
+  }).exec((err, result) => {
+    if (err) next(err)
+
+    if (result) {
+      res.send(result)
+    } else {
+      res.status(403).end()
+    }
+  })
+})
+
+router.put('/api/polls/:id', (req, res, next) => {
+  let id = req.params.id
+  let updatedPoll = req.body.poll
+
+  Poll.update({
+        _id: id,
+        created_by: req.account.data._id
+      },
+      updatedPoll)
+    .exec((err, result) => {
+      if (err) next(err)
+
+      if (result) {
+        res.send(result)
+      } else {
+        res.status(403).end()
+      }
+    })
+})
+
+router.get('/api/polls', (req, res, next) => {
+  let offset = parse(req.originalUrl, true).query.offset || 0
+  let userId = req.account.data._id
+
+  Poll.find({
+    created_by: userId
+  }).skip(offset).limit(10).sort({
+    'created_at': -1
+  }).exec((err, result) => {
+    if (err) next(err)
+
+    res.send(result)
+  })
+})
+
+router.post('/api/polls', (req, res, next) => {
   let userId = req.account.data._id
 
   let poll = new Poll({
