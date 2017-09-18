@@ -7,7 +7,6 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../docs/'),
-    publicPath: '../docs/',
     filename: '[name].js'
   },
   module: {
@@ -27,13 +26,11 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
-        loader: 'css-loader',
-        exclude: /node_modules/
+        loader: 'css-loader'
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

@@ -1,18 +1,19 @@
 <template>
   <div>
-    <header></header>
+    APP
+    <header-comp></header-comp>
     <div class="container">
       <transition appear :name="transitionName" mode="out-in">
         <router-view></router-view>
       </transition>
     </div>
-    <footer></footer>
+    <footer-comp></footer-comp>
   </div>
 </template>
 
 <script>
-  import header from './layout/header.vue'
-  import footer from './layout/footer.vue'
+  import headerComp from './layout/header.vue'
+  import footerComp from './layout/footer.vue'
 
   export default {
     data () {
@@ -21,8 +22,8 @@
       }
     },
     components: {
-      header,
-      footer
+      headerComp,
+      footerComp
     },
     watch: {
       '$route' (to, from) {
