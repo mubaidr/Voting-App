@@ -2,10 +2,10 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, '../docs'),
-    publicPath: '../docs/',
+    path: path.resolve(__dirname, './docs/'),
+    publicPath: './docs/',
     filename: 'build.js'
   },
   module: {
@@ -26,6 +26,11 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
         exclude: /node_modules/
       },
       {

@@ -1,8 +1,23 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './views/app.vue'
 
-// eslint-disable-next-line
+import router from './utilities/router'
+import store from './utilities/store'
+
+import {
+  sync
+} from 'vuex-router-sync'
+
+sync(store, router)
+
 const app = new Vue({
-  el: '#app',
-  render: h => h(App)
+  router,
+  store,
+  App
 })
+
+export {
+  app,
+  router,
+  store
+}

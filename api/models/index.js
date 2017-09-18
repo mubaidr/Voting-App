@@ -55,16 +55,19 @@ let voteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  option: String
+  option: {
+    type: String,
+    required: true
+  }
 })
 
 let userModel = mongoose.model('User', userSchema)
 let pollModel = mongoose.model('Poll', pollSchema)
 let voteModel = mongoose.model('Vote', voteSchema)
 
-voteSchema.pre('save', next => {
-  next()
-})
+// voteSchema.pre('save', next => {
+//   next()
+// })
 
 module.exports = {
   User: userModel,

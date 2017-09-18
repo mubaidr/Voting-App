@@ -1,0 +1,51 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+import home from './../../views/home.vue'
+import poll from './../../views/poll.vue'
+import polls from './../../views/polls.vue'
+import pollCreate from './../../views/poll-create.vue'
+import profile from './../../views/profile.vue'
+import register from './../../views/register.vue'
+import login from './../../views/login.vue'
+import _404 from './../../views/404.vue'
+
+Vue.use(Router)
+
+const router = new Router({
+  mode: 'history',
+  root: '/',
+  routes: [{
+    path: '/',
+    redirect: '/'
+  }, {
+    path: '/home',
+    component: home
+  }, {
+    path: '/profile',
+    component: profile
+  }, {
+    path: '/polls',
+    component: polls
+  }, {
+    path: '/polls/create',
+    component: pollCreate
+  }, {
+    path: '/poll',
+    component: poll
+  }, {
+    path: '/register',
+    component: register
+  }, {
+    path: '/signin',
+    component: login
+  }, {
+    path: '/404',
+    component: _404
+  }, {
+    path: '*',
+    redirect: '/error/404'
+  }]
+})
+
+export default router

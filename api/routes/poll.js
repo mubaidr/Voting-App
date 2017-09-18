@@ -47,10 +47,10 @@ router.put('/api/polls/:id', (req, res, next) => {
   let updatedPoll = req.body.poll
 
   Poll.update({
-        _id: id,
-        created_by: req.account.data._id
-      },
-      updatedPoll)
+    _id: id,
+    created_by: req.account.data._id
+  },
+  updatedPoll)
     .exec((err, result) => {
       if (err) next(err)
 
