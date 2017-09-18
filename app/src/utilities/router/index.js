@@ -17,7 +17,7 @@ const router = new Router({
   root: '/',
   routes: [{
     path: '/',
-    redirect: '/'
+    redirect: '/home'
   }, {
     path: '/home',
     component: home
@@ -31,7 +31,7 @@ const router = new Router({
     path: '/polls/create',
     component: pollCreate
   }, {
-    path: '/poll',
+    path: '/poll/:id',
     component: poll
   }, {
     path: '/register',

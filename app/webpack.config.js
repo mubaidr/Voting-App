@@ -2,11 +2,13 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js'
+  },
   output: {
     path: path.resolve(__dirname, '../docs/'),
     publicPath: '../docs/',
-    filename: 'build.js'
+    filename: '[name].js'
   },
   module: {
     rules: [{
@@ -49,7 +51,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: false
   },
   performance: {
     hints: false

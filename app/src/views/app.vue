@@ -1,47 +1,41 @@
 <template>
   <div>
-    APP
-    <router-view></router-view>
+    <header></header>
+    <div class="container">
+      <transition appear :name="transitionName" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
+    <footer></footer>
   </div>
 </template>
 
 <script>
+  import header from './layout/header.vue'
+  import footer from './layout/footer.vue'
+
   export default {
-    name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        transitionName: 'slide-up'
+      }
+    },
+    components: {
+      header,
+      footer
+    },
+    watch: {
+      '$route' (to, from) {
+        const toDepth = to.path.split('/').length
+        const fromDepth = from.path.split('/').length
+        if (toDepth === fromDepth) {
+          this.transitionName = 'slide-up'
+        } else {
+          this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+        }
       }
     }
   }
 </script>
 
-<style lang="scss">
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-
-  h1,
-  h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-</style>
+<style lang="scss"></style>

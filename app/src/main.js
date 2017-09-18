@@ -13,11 +13,11 @@ sync(store, router)
 const app = new Vue({
   router,
   store,
-  App
+  components: {
+    App
+  }
 })
 
 export {
-  app,
-  router,
-  store
+  app
 }
