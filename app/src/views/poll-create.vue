@@ -5,21 +5,21 @@
         <fieldset>
           <legend>Create a new Poll</legend>
           <div class="form-group">
-            <label for="inputEmail" class="col-lg-4 control-label">Title</label>
+            <label class="col-lg-4 control-label">Title</label>
             <div class="col-lg-8">
               <textarea class="form-control" placeholder="Title of Poll" rows="3" v-model="form.title"></textarea>
             </div>
           </div>
-          <div class="form-group">
-            <label for="inputPassword" class="col-lg-4 control-label">Options</label>
+          <div class="form-group" v-for="i in form.options.length" :key="i">
+            <label class="col-lg-4 control-label">Option {{i}}</label>
             <div class="col-lg-8">
-              <!-- Generate options -->
+              <input class="form-control" type="text" placeholder="Option text" v-model="form.options[i]">
             </div>
           </div>
           <div class="form-group">
             <div class="col-lg-8 col-lg-offset-4">
-              <a href="/home" class="btn btn-default">Cancel</a>
-              <button type="button" class="btn btn-primary" @click.prevent.stop="create">Create</button>
+              <a class="btn btn-default" href="/home">Cancel</a>
+              <button class="btn btn-primary" type="button" @click.prevent.stop="create">Create</button>
             </div>
           </div>
         </fieldset>
@@ -38,7 +38,7 @@
       return {
         form: {
           title: '',
-          options: ['', '', '']
+          options: ['yes', 'no', 'maybe']
         }
       }
     },
@@ -62,6 +62,8 @@
 </script>
 
 <style>
-
+  textarea.form-control {
+    overflow: hidden;
+  }
 </style>
 

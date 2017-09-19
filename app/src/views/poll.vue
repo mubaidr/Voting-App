@@ -6,7 +6,14 @@
           <h3 class="panel-title">{{poll.title}}</h3>
         </div>
         <div class="panel-body">
-          Options
+          <hr/>
+          <div class="radio" v-for="option in poll.options" :key="option">
+            <label>
+              <input type="radio" name="optionsRadios" :value="option" @click="addVote(option)"> {{option}}
+            </label>
+          </div>
+          <hr/>
+          <span class="text-muted text-small">Created on: {{new Date(poll.created_at).toDateString()}}</span>
         </div>
       </div>
       <div class="progress progress-striped active" v-else>
@@ -28,6 +35,11 @@
     },
     computed: {
       ...mapGetters(['getAPI'])
+    },
+    methods: {
+      addVote (opt) {
+        alert(opt)
+      }
     },
     mounted () {
       let id = this.$route.params.id
