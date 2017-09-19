@@ -1,66 +1,94 @@
 <template>
-  <footer id="myFooter">
+    <footer id="myFooter">
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <h2 class="logo"><a href="#"> LOGO </a></h2>
-                </div>
-                <div class="col-sm-2">
                     <h5>Get started</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Sign up</a></li>
-                        <li><a href="#">Downloads</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-2">
-                    <h5>About us</h5>
-                    <ul>
-                        <li><a href="#">Company Information</a></li>
-                        <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Reviews</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Support</h5>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Help desk</a></li>
-                        <li><a href="#">Forums</a></li>
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li>
+                            <a href="/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="/register">Register</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <div class="social-networks" style="display: none !important;">
-                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-                    </div>
-                    <button type="button" class="btn btn-default">Contact us</button>
+                    <h5>About</h5>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/mubaidr/Voting-App#voting-app">Service</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/mubaidr/Voting-App">Source Code</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Support</h5>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/mubaidr/Voting-App/issues">Github Issues</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <p>Designed and Coded by <br/>
+                        <a href="https://mubaidr.github.io">Muhammad Ubaid Raza</a>
+                    </p>
                 </div>
             </div>
-        </div>
-        <div class="footer-copyright">
-            <p>© 2016 Copyright Text </p>
         </div>
     </footer>
 </template>
 
 <script>
-  export default {
-    name: "footer-comp"
-  }
+    export default {
+        name: "footer-comp"
+    }
 </script>
 
 <style>
-#myFooter {
-    flex: 0 0 auto;
-    -webkit-flex: 0 0 auto;
-}
-Footer-with-button-logo.css:1
-#myFooter {
-    background-color: #3c3d41;
-    color: white;
-    padding-top: 30px;
-}
+    #myFooter {
+        flex: 0 0 auto;
+        -webkit-flex: 0 0 auto;
+    }
+
+    #myFooter {
+        background-color: #f7f7f7;
+        padding: 30px 0;
+        border-top: 1px solid #ccc;
+    }
+
+    @media screen and (min-height: 760px) {
+        #myFooter {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 15px 0;
+        }
+    }
+
+    #myFooter ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #myFooter h5 {
+        margin-top: 0;
+    }
+
+    .footer-copyright {
+        color: #444;
+        margin-top: 10px;
+        padding-bottom: 5px;
+        margin-right: 20px;
+        text-align: left;
+    }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header-comp></header-comp>
-    <div class="container">
+    <div class="container body">
       <transition appear :name="transitionName" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -38,4 +38,6 @@
   }
 </script>
 
-<style></style>
+<style>
+
+</style>
