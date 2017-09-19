@@ -39,5 +39,7 @@
 </script>
 
 <style>
-
+  .container.body {
+    padding: 50px 0;
+  }
 </style>

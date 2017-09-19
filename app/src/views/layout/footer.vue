@@ -2,21 +2,7 @@
     <footer id="myFooter">
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
-                    <h5>Get started</h5>
-                    <ul>
-                        <li>
-                            <a href="/home">Home</a>
-                        </li>
-                        <li>
-                            <a href="/login">Login</a>
-                        </li>
-                        <li>
-                            <a href="/register">Register</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>About</h5>
                     <ul>
                         <li>
@@ -28,7 +14,7 @@
 
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Support</h5>
                     <ul>
                         <li>
@@ -36,7 +22,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <p>Designed and Coded by <br/>
                         <a href="https://mubaidr.github.io">Muhammad Ubaid Raza</a>
                     </p>
@@ -61,7 +47,7 @@
     #myFooter {
         background-color: #f7f7f7;
         padding: 30px 0;
-        border-top: 1px solid #ccc;
+        border-top: 1px solid #ddd;
     }
 
     @media screen and (min-height: 760px) {
@@ -69,7 +55,7 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            padding: 15px 0;
+            padding: 50px 0;
         }
     }
 

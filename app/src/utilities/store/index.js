@@ -6,22 +6,22 @@ import api from '../../api'
 Vue.use(Vuex)
 
 const state = {
-  auth: session.getAuth(),
+  token: session.getToken(),
   user: session.getUser(),
   api: api
 }
 
 const mutations = {
-  setAuthentication(state, auth) {
-    state.auth = auth
-    session.setAuth(auth)
+  setAuthentication(state, token) {
+    state.token = token
+    session.setToken(token)
   },
   setUserInfo(state, userInfo) {
     state.userInfo = userInfo
     session.setUser(userInfo)
   },
   removeAuthentication(state) {
-    state.auth = null
+    state.token = null
     state.user = null
     session.clear()
   }
@@ -30,11 +30,11 @@ const mutations = {
 const actions = {}
 
 const getters = {
-  getAuth(state) {
-    return state.auth
+  getToken(state) {
+    return state.token
   },
   isAuthenticated(state) {
-    return state.auth !== null && typeof state.auth !== 'undefined'
+    return state.token !== null && typeof state.token !== 'undefined'
   },
   getUser(state) {
     return state.user

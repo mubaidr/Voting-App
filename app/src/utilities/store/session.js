@@ -1,14 +1,14 @@
 export default {
-  getAuth () {
-    return JSON.parse(window.localStorage.getItem('auth'))
+  getToken() {
+    return JSON.parse(window.localStorage.getItem('token'))
   },
-  setAuth (obj) {
-    window.localStorage.setItem('auth', JSON.stringify(obj))
+  setToken(obj) {
+    window.localStorage.setItem('token', JSON.stringify(obj))
   },
-  getUser () {
+  getUser() {
     return JSON.parse(window.localStorage.getItem('userinfo'))
   },
-  setUser (obj) {
+  setUser(obj) {
     window.localStorage.setItem('userinfo', JSON.stringify(obj))
   }
 }

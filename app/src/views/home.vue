@@ -1,9 +1,9 @@
 <template>
   <div class="jumbotron">
-    <h1>Jumbotron</h1>
-    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <h1>Open Vote</h1>
+    <p>Create and share your polls or participate by voting in public polls.</p>
     <p>
-      <a class="btn btn-primary btn-lg">Learn more</a>
+      <a class="btn btn-primary btn-lg" href="https://github.com/mubaidr/Voting-App">Learn more</a>
     </p>
   </div>
 </template>

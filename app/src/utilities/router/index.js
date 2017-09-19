@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import home from './../../views/home.vue'
 import poll from './../../views/poll.vue'
 import polls from './../../views/polls.vue'
+import pollsAll from './../../views/polls-all.vue'
 import pollCreate from './../../views/poll-create.vue'
 import profile from './../../views/profile.vue'
 import register from './../../views/register.vue'
@@ -28,7 +29,10 @@ const router = new Router({
     path: '/polls',
     component: polls
   }, {
-    path: '/polls/create',
+    path: '/polls-all',
+    component: pollsAll
+  }, {
+    path: '/polls-create',
     component: pollCreate
   }, {
     path: '/poll/:id',
