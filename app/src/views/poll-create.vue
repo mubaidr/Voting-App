@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="col-lg-offset-3 col-lg-6">
+  <div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
       <form class="form-horizontal">
         <fieldset>
           <legend>Create a new Poll</legend>
@@ -38,7 +38,7 @@
       return {
         form: {
           title: '',
-          options: ['yes', 'no']
+          options: ['', '', '']
         }
       }
     },
@@ -49,8 +49,7 @@
       create () {
         axios.post(this.getAPI.url + 'api/polls', this.form).then(res => {
           if (res.data.success) {
-            console.log(res.data.poll)
-            router.push('polls/' + res.data.poll._id)
+            router.push('poll/' + res.data.poll._id)
           } else {
             alert(res.data.error)
           }

@@ -1,12 +1,43 @@
 <template>
-  <h1>
-    Poll
-  </h1>
+  <div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+      <div class="panel panel-primary" v-if="poll">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{poll.title}}</h3>
+        </div>
+        <div class="panel-body">
+          Options
+        </div>
+      </div>
+      <div class="progress progress-striped active" v-else>
+        <div class="progress-bar" style="width: 45%"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  export default {
+  import { mapGetters } from 'vuex'
+  import axios from 'axios'
 
+  export default {
+    data () {
+      return {
+        poll: null
+      }
+    },
+    computed: {
+      ...mapGetters(['getAPI'])
+    },
+    mounted () {
+      let id = this.$route.params.id
+
+      axios.get(this.getAPI.url + 'api/polls/' + id).then(res => {
+        this.poll = res.data
+      }).catch(() => {
+        alert('Error! Please try again.')
+      })
+    }
   }
 </script>
 

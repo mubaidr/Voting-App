@@ -13,7 +13,7 @@
             <a href="/polls">My Polls</a>
           </li>
           <li>
-            <a href="/polls-create">Create new</a>
+            <a href="/polls-create">Create new Poll</a>
           </li>
         </template>
       </ul>
