@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  import router from '../utilities/router'
-  import store from '../utilities/store'
+  import router from '../../utilities/router'
+  import store from '../../utilities/store'
   import { mapGetters } from 'vuex'
   // import axios from 'axios'
 
