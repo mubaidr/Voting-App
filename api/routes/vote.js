@@ -4,7 +4,7 @@ const Vote = require('../models').Vote
 const Poll = require('../models').Poll
 
 router.get('/api/vote', (req, res, next) => {
-  let vote = new Vote(req.body)
+  let vote = req.body
   let userId = req.account.data._id
 
   Vote.find({

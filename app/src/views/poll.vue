@@ -12,7 +12,9 @@
             </label>
           </div>
           <hr/>
-          <span class="text-muted text-small">Created on: {{new Date(poll.created_at).toDateString()}}</span>
+          <span>Created on: {{new Date(poll.created_at).toDateString()}}</span>
+          <br/>
+          <span>Total Votes: {{poll.vote_stats.total}}</span>
         </div>
         <div class="panel-body" v-else>
           Load graph
@@ -23,6 +25,7 @@
       </div>
     </div>
     <pre>{{poll}}</pre>
+    <pre>{{hasVoted}}</pre>
   </div>
 </template>
 
