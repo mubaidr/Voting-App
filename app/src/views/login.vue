@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <div class="col-lg-offset-3 col-lg-6">
       <form class="form-horizontal">
         <fieldset>
@@ -18,7 +18,8 @@
           </div>
           <div class="form-group">
             <div class="col-lg-8 col-lg-offset-4">
-              <a href="/home" class="btn btn-default">Cancel</a>
+              <router-link to="/register">Don't have an account?</router-link>
+              <router-link to="/home">Cancel</router-link>
               <button type="button" class="btn btn-primary" @click.prevent.stop="login">Login</button>
             </div>
           </div>

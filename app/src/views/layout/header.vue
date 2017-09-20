@@ -2,33 +2,33 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/home">Open Vote</a>
+        <router-link to="/home" class="navbar-brand">Open Vote</router-link>
       </div>
       <ul class="nav navbar-nav">
         <li>
-          <a href="/polls-all">Latest Polls</a>
+          <router-link to="/polls-all">Latest Polls</router-link>
         </li>
         <template v-if="isAuthenticated">
           <li>
-            <a href="/polls">My Polls</a>
+            <router-link to="/polls">My Polls</router-link>
           </li>
           <li>
-            <a href="/polls-create">Create new Poll</a>
+            <router-link to="/polls-create">Create new Poll</router-link>
           </li>
         </template>
       </ul>
       <ul class="nav navbar-nav pull-right">
         <template v-if="isAuthenticated">
           <li>
-            <a href="#" @click.prevent.stop="logout">Logout</a>
+            <a @click.prevent.stop="logout">Logout</a>
           </li>
         </template>
         <template v-else>
           <li>
-            <a href="/register">Register</a>
+            <router-link to="/register">Register</router-link>
           </li>
           <li>
-            <a href="/login">Login</a>
+            <router-link to="/login">Login</router-link>
           </li>
         </template>
       </ul>

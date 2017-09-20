@@ -3,12 +3,12 @@
     <div class="col-lg-offset-2 col-lg-8">
       <h2>My Polls: </h2>
       <ul class="list-group">
-        <a href="#" @click="viewPoll(poll._id)" v-for="poll in polls" :key="poll._id">
+        <router-link :to="'/poll/' + poll._id" v-for="poll in polls" :key="poll._id">
           <li class="list-group-item">
             <span class="badge" title="Total Votes">{{poll.vote_stats.total}}</span>
             {{poll.title}}
           </li>
-        </a>
+        </router-link>
       </ul>
     </div>
   </div>

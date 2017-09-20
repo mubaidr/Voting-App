@@ -28,7 +28,7 @@
             <div class="col-lg-8 col-lg-offset-4">
               <button class="btn btn-success" type="button" @click="create" :disabled="!isFormValid">Create Poll</button>
               <button type="button" class="btn btn-primary" @click="addOption">Add more option</button>
-              <a class="btn btn-warning" href="/home">Cancel</a>
+              <router-link class="btn btn-default" to="/home">Cancel</router-link>
             </div>
           </div>
         </fieldset>

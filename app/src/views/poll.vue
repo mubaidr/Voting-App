@@ -75,6 +75,11 @@
       axios.get(this.getAPI.url + 'api/polls/' + id).then(res => {
         let pollData = res.data
 
+        /***debug */
+        this.poll = pollData
+        return
+        /***debug */
+
         axios.get(this.getAPI.url + 'api/vote', {
           poll_id: pollData._id
         }).then(res => {
