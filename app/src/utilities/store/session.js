@@ -10,5 +10,9 @@ export default {
   },
   setUser(obj) {
     window.localStorage.setItem('userinfo', JSON.stringify(obj))
+  },
+  clear() {
+    window.localStorage.removeItem('token')
+    window.localStorage.removeItem('userinfo')
   }
 }

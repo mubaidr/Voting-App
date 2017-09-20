@@ -39,7 +39,7 @@ router.post('/auth/register', (req, res, next) => {
         if (err) next(err)
 
         jwt.sign({
-          data: user
+          data: usr
         }, config.secret, {
           expiresIn: 60 * 60 * 24
         }, function (err, token) {
