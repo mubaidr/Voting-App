@@ -13,8 +13,7 @@ import _404 from './../../views/404.vue'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
-  root: '/',
+  base: '/Voting-App/',
   routes: [{
     path: '/',
     redirect: '/home'

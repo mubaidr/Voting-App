@@ -17,7 +17,7 @@
           <span>Total Votes: {{poll.vote_stats.total}}</span>
         </div>
         <div class="panel-body" v-else>
-          Load graph
+          <canvas ref="myChart" width="400" height="400"></canvas>
         </div>
         <div class="panel-body" v-if="poll.created_by==getUser.data._id">
           <button type="button" class="btn btn-danger btn-sm" @click="deletePoll">Delete</button>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { Chart } from 'chart.js'
   import router from '../utilities/router'
   import { mapGetters } from 'vuex'
   import axios from 'axios'
@@ -39,7 +40,14 @@
     data () {
       return {
         poll: null,
-        hasVoted: true
+        hasVoted: null
+      }
+    },
+    watch: {
+      'hasVoted' (val) {
+        if (val) {
+          this.loadChart()
+        }
       }
     },
     computed: {
@@ -67,6 +75,26 @@
         }).catch(() => {
           alert('Error! Please try again.')
         })
+      },
+      loadChart () {
+        let myPieChart = new Chart(this.$refs.myChart, {
+          type: 'doughnut',
+          data: {
+            labels: this.poll.options,
+            datasets: [{
+              backgroundColor: [
+                "#2ecc71",
+                "#3498db",
+                "#95a5a6",
+                "#9b59b6",
+                "#f1c40f",
+                "#e74c3c",
+                "#34495e"
+              ],
+              data: this.poll.vote_stats.options
+            }]
+          }
+        });
       }
     },
     mounted () {
@@ -74,11 +102,6 @@
 
       axios.get(this.getAPI.url + 'api/polls/' + id).then(res => {
         let pollData = res.data
-
-        /***debug */
-        this.poll = pollData
-        return
-        /***debug */
 
         axios.get(this.getAPI.url + 'api/vote', {
           poll_id: pollData._id
