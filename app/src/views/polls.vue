@@ -33,7 +33,7 @@
         router.push('poll/' + id)
       }
     },
-    created () {
+    mounted () {
       axios.get(this.getAPI.url + 'api/polls').then(res => {
         this.polls = res.data
       }).catch(() => {
