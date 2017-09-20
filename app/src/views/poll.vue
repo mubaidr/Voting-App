@@ -22,6 +22,7 @@
         <div class="progress-bar" style="width: 45%"></div>
       </div>
     </div>
+    <pre>{{poll}}</pre>
   </div>
 </template>
 
@@ -60,14 +61,15 @@
       let id = this.$route.params.id
 
       axios.get(this.getAPI.url + 'api/polls/' + id).then(res => {
-        this.poll = res.data
+        let pollData = res.data
 
         axios.get(this.getAPI.url + 'api/vote', {
-          poll_id: this.poll._id
+          poll_id: pollData._id
         }).then(res => {
-          if (res.data.success && res.data.vote) {
-            this.hasVoted = true
+          if (res.data.success) {
+            this.hasVoted = res.data.hasVoted
           }
+          this.poll = pollData
         }).catch(() => {
           alert('Error! Please try again.')
         })

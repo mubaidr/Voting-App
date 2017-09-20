@@ -15,7 +15,7 @@ router.get('/api/vote', (req, res, next) => {
 
     res.json({
       success: true,
-      vote: votes[0]
+      hasVoted: votes.length > 0
     })
   })
 })
