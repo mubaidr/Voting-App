@@ -19,17 +19,19 @@
         <div class="panel-body" v-else>
           Load graph
         </div>
+        <div class="panel-body" v-if="poll.created_by==getUser.data._id">
+          <button type="button" class="btn btn-danger btn-sm" @click="deletePoll">Delete</button>
+        </div>
       </div>
       <div class="progress progress-striped active" v-else>
         <div class="progress-bar" style="width: 45%"></div>
       </div>
     </div>
-    <pre>{{poll}}</pre>
-    <pre>{{hasVoted}}</pre>
   </div>
 </template>
 
 <script>
+  import router from '../utilities/router'
   import { mapGetters } from 'vuex'
   import axios from 'axios'
 
@@ -37,11 +39,11 @@
     data () {
       return {
         poll: null,
-        hasVoted: false
+        hasVoted: true
       }
     },
     computed: {
-      ...mapGetters(['getAPI'])
+      ...mapGetters(['getAPI', 'getUser'])
     },
     methods: {
       addVote (opt) {
@@ -55,6 +57,13 @@
           } else {
             alert(res.data.error)
           }
+        }).catch(() => {
+          alert('Error! Please try again.')
+        })
+      },
+      deletePoll () {
+        axios.delete(this.getAPI.url + 'api/polls/' + this.poll._id).then(() => {
+          router.push('/polls')
         }).catch(() => {
           alert('Error! Please try again.')
         })

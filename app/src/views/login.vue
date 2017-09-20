@@ -52,6 +52,15 @@
           if (res.data.success) {
             store.commit('setAuthentication', res.data.token)
             router.push('home')
+
+            setTimeout(() => {
+              axios.get(this.getAPI.url + 'api/users/self').then(result => {
+                store.commit('setUserInfo', result.data)
+              }).catch(err => {
+                alert(err)
+              })
+            }, 500)
+
           } else {
             alert(res.data.error)
           }

@@ -7,6 +7,8 @@ router.get('/api/vote', (req, res, next) => {
   let vote = req.body
   let userId = req.account.data._id
 
+  //TOFIX vote get api fixed
+
   Vote.find({
     poll_id: vote.poll_id,
     user_id: userId
@@ -30,10 +32,12 @@ router.post('/api/vote', (req, res, next) => {
     poll.vote_stats.total = poll.vote_stats.total ? ++poll.vote_stats.total : 1
     poll.vote_stats.options[index] = poll.vote_stats.options[index] ? ++poll.vote_stats.options[index] : 1
 
+    //TOFIX poll option vote update
+
     poll.save((err) => {
       if (err) next(err)
 
-      vote.user_id = poll.created_by
+      vote.user_id = req.account.data._id
       vote.save((err) => {
         if (err) next(err)
 
