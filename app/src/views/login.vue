@@ -18,9 +18,9 @@
           </div>
           <div class="form-group">
             <div class="col-lg-8 col-lg-offset-4">
+              <button type="button" class="btn btn-primary" @click.prevent.stop="login">Login</button>
               <router-link to="/register">Don't have an account?</router-link>
               <router-link to="/home">Cancel</router-link>
-              <button type="button" class="btn btn-primary" @click.prevent.stop="login">Login</button>
             </div>
           </div>
         </fieldset>

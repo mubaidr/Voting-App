@@ -5,7 +5,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">{{poll.title}}</h3>
         </div>
-        <div class="panel-body" v-if="!hasVoted">
+        <div class="panel-body" v-show="!hasVoted">
           <div class="radio" v-for="option in poll.options" :key="option">
             <label>
               <input type="radio" name="optionsRadios" :value="option" @click="addVote(option)"> {{option}}
@@ -16,7 +16,7 @@
           <br/>
           <span>Total Votes: {{poll.vote_stats.total}}</span>
         </div>
-        <div class="panel-body" v-else>
+        <div class="panel-body" v-show="hasVoted">
           <canvas ref="myChart" width="400" height="400"></canvas>
         </div>
         <div class="panel-body" v-if="poll.created_by==getUser.data._id">
@@ -106,15 +106,16 @@
         axios.get(this.getAPI.url + 'api/vote', {
           poll_id: pollData._id
         }).then(res => {
+          this.poll = pollData
+
           if (res.data.success) {
             this.hasVoted = res.data.hasVoted
           }
-          this.poll = pollData
         }).catch(() => {
           alert('Error! Please try again.')
         })
       }).catch(() => {
-        alert('Error! Please try again.')
+        alert('Error! Please try again .')
       })
     }
   }
