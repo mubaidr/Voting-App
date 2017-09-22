@@ -1,3 +1,3 @@
 module.exports = {
-  url: 'http://localhost:9000/'
+  url: 'https://voting-api-mubaidr.herokuapp.com/'
 }
