@@ -3,18 +3,15 @@ const router = require('express').Router()
 const Vote = require('../models').Vote
 const Poll = require('../models').Poll
 
-router.get('/api/vote', (req, res, next) => {
-  let vote = req.body
+router.get('/api/vote/:pollId', (req, res, next) => {
+  let pollId = req.params.pollId
   let userId = req.account.data._id
 
-  console.log(vote, userId)
-
   Vote.find({
-    poll_id: vote.poll_id,
+    poll_id: pollId,
     user_id: userId
   }).exec((err, votes) => {
     if (err) next(err)
-
 
     res.json({
       success: true,

@@ -103,14 +103,15 @@
       axios.get(this.getAPI.url + 'api/polls/' + id).then(res => {
         let pollData = res.data
 
-        axios.get(this.getAPI.url + 'api/vote', {
-          poll_id: pollData._id
-        }).then(res => {
+        axios.get(this.getAPI.url + 'api/vote/' + pollData._id).then(res => {
           this.poll = pollData
 
-          if (res.data.success) {
-            this.hasVoted = res.data.hasVoted
-          }
+          this.$nextTick(function () {
+            if (res.data.success) {
+              this.hasVoted = res.data.hasVoted
+            }
+          })
+
         }).catch(() => {
           alert('Error! Please try again.')
         })
