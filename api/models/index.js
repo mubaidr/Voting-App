@@ -42,7 +42,7 @@ let pollSchema = new mongoose.Schema({
   },
   vote_stats: {
     total: Number,
-    options: [Number]
+    options: []
   }
 })
 
