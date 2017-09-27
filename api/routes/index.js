@@ -1,4 +1,3 @@
-const chalk = require('chalk')
 const router = require('express').Router()
 
 const authRoutes = require('./auth')
@@ -14,13 +13,13 @@ router.use(voteRoutes)
 
 /* 404 */
 router.get('*', (req, res) => {
-  console.dir(chalk.bgRed('404! Not Found!'))
+  console.dir('404! Not Found!')
   res.status(404).end()
 })
 
 /* Error handler */
 router.use(function (err, req, res, next) {
-  console.dir(chalk.bgRed(err))
+  console.dir(err)
   res.status(500).send(err)
 })
 
