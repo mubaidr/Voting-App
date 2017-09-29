@@ -22,13 +22,19 @@ const router = new Router({
     component: home
   }, {
     path: '/polls',
-    component: polls
+    component: polls,
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/polls-all',
     component: pollsAll
   }, {
     path: '/polls-create',
-    component: pollCreate
+    component: pollCreate,
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/poll/:id',
     component: poll
