@@ -7,12 +7,12 @@
       </div>
       <div v-else>
         <ul class="list-group">
-          <a href="#" @click="viewPoll(poll._id)" v-for="poll in polls" :key="poll._id">
+          <router-link :to="'/poll/' + poll._id" v-for="poll in polls" :key="poll._id">
             <li class="list-group-item">
               <span class="badge" title="Total Votes">{{poll.vote_stats.total}}</span>
               {{poll.title}}
             </li>
-          </a>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -34,11 +34,7 @@
     computed: {
       ...mapGetters(['getAPI'])
     },
-    methods: {
-      viewPoll (id) {
-        router.push('poll/' + id)
-      }
-    },
+    methods: {},
     mounted () {
       axios.get(this.getAPI.url + 'api/polls/all').then(res => {
         this.polls = res.data

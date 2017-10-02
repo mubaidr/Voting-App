@@ -50,15 +50,6 @@
         border-top: 1px solid #ddd;
     }
 
-    @media screen and (min-height: 760px) {
-        #myFooter {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 9;
-        }
-    }
-
     #myFooter ul {
         list-style: none;
         margin: 0;

@@ -121,7 +121,7 @@ router.use('/api/*', (req, res, next) => {
     if (req.originalUrl === '/api/polls/all') {
       next()
     } else {
-      res.sendStatus(403)
+      res.status(403).end()
     }
   }
 })

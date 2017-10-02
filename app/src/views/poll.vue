@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="progress progress-striped active" v-else>
-        <div class="progress-bar" style="width: 45%"></div>
+        <div class="progress-bar" style="width: 100%"></div>
       </div>
     </div>
   </div>
@@ -106,7 +106,7 @@
         axios.get(this.getAPI.url + 'api/vote/' + pollData._id).then(res => {
           this.poll = pollData
 
-          this.$nextTick(function () {
+          this.$nextTick(() => {
             if (res.data.success) {
               this.hasVoted = res.data.hasVoted
             }

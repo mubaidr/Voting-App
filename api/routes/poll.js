@@ -11,7 +11,7 @@ router.get('/api/polls/all', (req, res, next) => {
   }).exec((err, result) => {
     if (err) next(err)
 
-    res.send(result)
+    res.json(result)
   })
 })
 
@@ -21,7 +21,7 @@ router.get('/api/polls/:id', (req, res, next) => {
   Poll.findById(id).exec((err, result) => {
     if (err) next(err)
 
-    res.send(result)
+    res.json(result)
   })
 })
 
@@ -35,7 +35,7 @@ router.delete('/api/polls/:id', (req, res, next) => {
     if (err) next(err)
 
     if (result) {
-      res.send(result)
+      res.json(result)
     } else {
       res.status(403).end()
     }
@@ -55,7 +55,7 @@ router.put('/api/polls/:id', (req, res, next) => {
       if (err) next(err)
 
       if (result) {
-        res.send(result)
+        res.json(result)
       } else {
         res.status(403).end()
       }
@@ -73,7 +73,7 @@ router.get('/api/polls', (req, res, next) => {
   }).exec((err, result) => {
     if (err) next(err)
 
-    res.send(result)
+    res.json(result)
   })
 })
 
